@@ -1,0 +1,4 @@
+.env
+package-lock.json
+node_modules/
+talk2friends-firebase.json
