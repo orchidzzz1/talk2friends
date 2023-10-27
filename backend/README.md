@@ -20,24 +20,41 @@ Note: use '-' in between each string concatenation
 ## Routes
 ### User Routes
 /api/user/authorize: Outputs {isVerified: true, user: user object} if user exists and is verified. Else, outputs {isVerified: false} and sends verification code to user's email
+
 /api/user/get (GET Route): Outputs {user: user object}
+
 /api/user/add: user = {name, affiliation, international, interests[]} 
+
 /api/user/update: name, affiliation, international
+
 /api/user/friends/add: friendEmail
+
 /api/user/friends/remove: friendEmail
+
 /api/user/addInterest: interest
+
 /api/user/removeInterest: interest
-/api/user/friends/recommended (GET Route): interests[]. Outputs {users: [{userEmail: list of interests in common}]}
+
+/api/user/friends/recommended (GET Route): interests[]. Outputs {users: [{userEmail: list of interests in common}, ]}
+
 /api/user/recommend: email, userName
+
 /api/user/sendVerification: 
+
 /api/user/verify: code. Outputs {isVerified: true/false}
 
 ### Meeting routes
 /api/meeting/get (GET Route): Outputs {meetings: list of meeting objects}
+
 /api/meeting/edit: title description, datetime, location
+
 /api/meeting/create: title, description, datetime, location
+
 /api/meeting/remove: meetingId
+
 /api/meeting/rsvp: meetindId
+
 /api/meeting/cancel: meetingId
+
 
 Above are the roures' inputs to be passed from front end and outputs to be received by front end. Only routes mentioned as (GET Route) are GET, the rest are POST routes
