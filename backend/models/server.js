@@ -11,7 +11,7 @@ const verify = require("../middleware/verify");
 class Server {
     constructor() {
         this.app = express();
-        this.port = process.env.PORT; // Loaded from .env file
+        this.port = process.env.PORT;
 
         this.middlewares();
         this.routes();
@@ -51,14 +51,11 @@ class Server {
 
     // Bind controllers to routes
     routes() {
-        // routes that do not need authorization
-        this.app.post("/api/user/verify", user.verifyRegistration);
-        this.app.post("/api/user/register", user.register);
-
         // middleware for verifying authorization
         this.app.use(verify);
 
         // user routes
+        this.app.get("/api/user/authorize", user.authorize);
         this.app.get("/api/user/get", user.get);
         this.app.post("/api/user/add", user.add);
         this.app.post("/api/user/update", user.updateUserInfo);
@@ -68,16 +65,15 @@ class Server {
         this.app.post("/api/user/removeInterest", user.removeInterest);
         this.app.get("/api/user/friends/recommended", user.getRecommended);
         this.app.post("/api/user/recommend", user.sendRecommendation);
-
+        this.app.post("/api/user/sendVerification", user.sendVerification);
+        this.app.post("/api/user/verify", user.verifyRegistration);
         // meeting routes
         this.app.get("/api/meeting/get", meeting.getAllMeetings);
         this.app.post("/api/meeting/edit", meeting.editMeeting);
         this.app.post("api/meeting/create", meeting.createMeeting);
-        this.app.post("api/meeting/addParticipant", meeting.addParticipant);
-        this.app.post(
-            "api/meeting/removeParticipant",
-            meeting.removeParticipant
-        );
+        this.app.post("api/meeting/remove", meeting.removeMeeting);
+        this.app.post("api/meeting/rsvp", meeting.addParticipant);
+        this.app.post("api/meeting/cancel", meeting.removeParticipant);
     }
 
     listen() {

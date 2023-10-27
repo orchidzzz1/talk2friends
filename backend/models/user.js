@@ -18,5 +18,6 @@ class User {
     interests = [];
     friends = [];
     meetings = [];
+    requests = [];
 }
 module.exports = User;
