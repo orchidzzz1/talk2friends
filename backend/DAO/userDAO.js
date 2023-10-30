@@ -10,16 +10,16 @@ class UserDAO {
             sessionToken: process.env.AWS_SESSION_TOKEN,
             region: process.env.AWS_REGION,
         });
-        this.client = new AWS.DynamoDB.DocumentClient();
     }
 
     async addUser(user) {
+        const client = new AWS.DynamoDB.DocumentClient();
         // expect a User object
         try {
             const item = {
-                pk: "user",
+                pk: "users",
                 sk: user.email,
-                username: user.name,
+                userName: user.userName,
                 affiliation: user.affiliation,
                 international: user.international,
             };
@@ -27,16 +27,20 @@ class UserDAO {
                 TableName: process.env.CYCLIC_DB,
                 Item: item,
             };
-            await this.client.put(params).promise();
+            await client.put(params).promise();
             // add interests
+            user.interests.forEach(async (interest) => {
+                await this.addInterest(user.email, interest);
+            });
         } catch (error) {
             console.log("Error adding user: ", error);
         }
     }
 
     async getUserInfo(userEmail) {
+        const client = new AWS.DynamoDB.DocumentClient();
         // get userinfo, list of interests, list of friends, and list of created meetings
-        const pk = "user";
+        const pk = "users";
         const sk = userEmail;
         const params = {
             TableName: process.env.CYCLIC_DB,
@@ -46,10 +50,11 @@ class UserDAO {
                 ":sk": sk,
             },
         };
-        const result = await this.client.getItem(params).promise();
-        var user = result.Item;
+        const result = await client.query(params).promise();
+        var user = result.Items[0];
         if (user) {
             // get list of interests
+            var interests = [];
             const interestParams = {
                 TableName: process.env.CYCLIC_DB,
                 KeyConditionExpression: "pk = :pk and begins_with(sk, :email)",
@@ -58,45 +63,54 @@ class UserDAO {
                     ":email": userEmail,
                 },
             };
-            const interestRes = await this.client
-                .query(interestParams)
-                .promise();
-            user.interests = interestRes.Items;
+            const interestRes = await client.query(interestParams).promise();
+            interestRes.Items.forEach((interest) => {
+                interests.push(interest.interest);
+            });
+            user.interests = interests;
 
             // get list of friends
             const friendsParams = {
                 TableName: process.env.CYCLIC_DB,
-                KeyConditionExpression: "pk = :pk and contains(sk, :email)",
+                KeyConditionExpression: "pk = :pk",
+                FilterExpression: "sender = :email OR receiver = :email",
                 ExpressionAttributeValues: {
-                    ":pk": "interests",
+                    ":pk": "friends",
                     ":email": userEmail,
                 },
             };
-            const friendsRes = await this.client.query(friendsParams).promise();
+            const friendsRes = await client.query(friendsParams).promise();
             var requests = [];
             var friends = [];
-            friendsRes.Items.forEach((entry) => {
+            friendsRes.Items.forEach((person) => {
+                const sender = person.sender;
+                const receiver = person.receiver;
                 if (person.accepted) {
-                    friends.push(person);
+                    if (sender == userEmail) {
+                        friends.push(receiver);
+                    } else {
+                        friends.push(sender);
+                    }
                 } else {
-                    requests.push(person);
+                    if (receiver == userEmail) {
+                        requests.push(sender);
+                    }
                 }
             });
+
             user.requests = requests;
             user.friends = friends;
 
             // list of created meetings
             const meetingsParams = {
                 TableName: process.env.CYCLIC_DB,
-                KeyConditionExpression: "pk = :pk and contains(sk, :email)",
+                KeyConditionExpression: "pk = :pk and begins_with(sk, :email)",
                 ExpressionAttributeValues: {
                     ":pk": "meetings",
                     ":email": userEmail,
                 },
             };
-            const meetingsRes = await this.client
-                .query(friendsParams)
-                .promise();
+            const meetingsRes = await client.query(meetingsParams).promise();
             if (meetingsRes.Items) {
                 user.meetings = meetingsRes.Items;
             } else {
@@ -106,15 +120,16 @@ class UserDAO {
         return user;
     }
 
-    async updateUserInfo(userEmail, name, affiliation, international) {
+    async updateUserInfo(userEmail, userName, affiliation, international) {
+        const client = new AWS.DynamoDB.DocumentClient();
         const primaryKey = {
             pk: "users",
             sk: userEmail,
         };
         const updateExpression =
-            "SET name = :name, affiliation = :affiliation, international = :international";
+            "SET userName = :userName, affiliation = :affiliation, international = :international";
         const expressionAttributeValues = {
-            ":name": name,
+            ":userName": userName,
             ":affiliation": affiliation,
             ":international": international,
         };
@@ -125,69 +140,83 @@ class UserDAO {
             UpdateExpression: updateExpression,
             ExpressionAttributeValues: expressionAttributeValues,
         };
-        this.client.update(params, (err, data) => {
-            if (err) {
-                console.error("Error updating user's info: ", err);
-            } else {
-                console.log("User's info updated successfully");
-            }
-        });
+        try {
+            await client.update(params).promise();
+            console.log("User's info updated successfully");
+        } catch (err) {
+            console.error("Error updating user's info: ", err);
+        }
     }
     async removeInterest(userEmail, interest) {
+        const client = new AWS.DynamoDB.DocumentClient();
         const params = {
-            pk: "interests",
-            sk: `${userEmail}-${interest}`,
+            TableName: process.env.CYCLIC_DB,
+            Key: { pk: "interests", sk: `${userEmail}-${interest}` },
         };
-        this.client.delete(params, (err, data) => {
-            if (err) {
-                console.error("Error removing interest: ", err);
-            } else {
-                console.log("Interest removed successfully");
-            }
-        });
+        try {
+            await client.delete(params).promise();
+            console.log("Interest removed successfully");
+        } catch (err) {
+            console.error("Error removing interest: ", err);
+        }
     }
     async addInterest(userEmail, interest) {
+        const client = new AWS.DynamoDB.DocumentClient();
         const params = {
-            pk: "interests",
-            sk: `${userEmail}-${interest}`,
+            TableName: process.env.CYCLIC_DB,
+            Item: {
+                pk: "interests",
+                sk: `${userEmail}-${interest}`,
+                interest: interest,
+            },
         };
-        this.client.put(params, (err, data) => {
-            if (err) {
-                console.error("Error adding interest: ", err);
-            } else {
-                console.log("Interest added successfully");
-            }
-        });
+        try {
+            await client.put(params).promise();
+            console.log("Interest added successfully");
+        } catch (err) {
+            console.error("Error adding interest: ", err);
+        }
     }
     async getRecommended(interests) {
+        const client = new AWS.DynamoDB.DocumentClient();
         var res = {};
-        var recommendedList = [];
+        var promises = [];
+        const pk = "interests";
         interests.forEach(async (interest) => {
-            const pk = "interests";
+            var promise = new Promise(async (resolve, reject) => {
+                const params = {
+                    TableName: process.env.CYCLIC_DB,
+                    KeyConditionExpression: "pk = :pk ",
+                    FilterExpression: "interest = :interest",
+                    ExpressionAttributeValues: {
+                        ":pk": pk,
+                        ":interest": interest,
+                    },
+                };
+                const result = await client.query(params).promise();
+                const people = result.Items;
+                people.forEach((person) => {
+                    // parse for email from sk
+                    let email = person.sk.split("-")[0];
 
-            const params = {
-                TableName: process.env.CYCLIC_DB,
-                KeyConditionExpression: "pk = :pk and contains(sk, :interest))",
-                ExpressionAttributeValues: {
-                    ":pk": pk,
-                    ":interest": interest,
-                },
-            };
-            const result = await this.client.query(params).promise();
-            const people = result.Items;
-            people.forEach((person) => {
-                if (!res.hasOwnProperty(person)) {
-                    res.person = [interest];
-                } else {
-                    res.person.push(interest);
-                }
+                    if (!res.hasOwnProperty(email)) {
+                        res[email] = [interest];
+                    } else {
+                        res[email].push(interest);
+                    }
+                });
+
+                resolve();
             });
+            promises.push(promise);
         });
-        return recommendedList;
+        await Promise.all(promises);
+        return res;
     }
     async addFriend(userEmail, friendEmail) {
+        const client = new AWS.DynamoDB.DocumentClient();
         // if no friend request, add new request
-        const pk = "user";
+        const pk = "friends";
         const sk1 = `${userEmail}-${friendEmail}`;
         const sk2 = `${friendEmail}-${userEmail}`;
 
@@ -207,25 +236,27 @@ class UserDAO {
                 ":sk": sk2,
             },
         };
-        const result1 = await this.client.getItem(params1).promise();
-        const result2 = await this.client.getItem(params2).promise();
-        if (!result1.Item && !result2.Item) {
+        const result1 = await client.query(params1).promise();
+        const result2 = await client.query(params2).promise();
+        if (result1.Items.length == 0 && result2.Items.length == 0) {
             // add new request
             const item = {
-                pk: "user",
+                pk: "friends",
                 sk: sk1,
                 accepted: false,
+                sender: userEmail,
+                receiver: friendEmail,
             };
             const params = {
                 TableName: process.env.CYCLIC_DB,
                 Item: item,
             };
-            await this.client.put(params).promise();
-        } else if (result1.Item) {
+            await client.put(params).promise();
+        } else if (result1.Items.length != 0) {
             // update
             const updateExpression = "SET accepted = :accepted";
             const expressionAttributeValues = {
-                ":accepted": accepted,
+                ":accepted": true,
             };
             const params = {
                 TableName: process.env.CYCLIC_DB,
@@ -233,12 +264,12 @@ class UserDAO {
                 UpdateExpression: updateExpression,
                 ExpressionAttributeValues: expressionAttributeValues,
             };
-            await this.client.update(params).promise();
-        } else if (result2.Item) {
+            await client.update(params).promise();
+        } else if (result2.Items.length != 0) {
             // update
             const updateExpression = "SET accepted = :accepted";
             const expressionAttributeValues = {
-                ":accepted": accepted,
+                ":accepted": true,
             };
             const params = {
                 TableName: process.env.CYCLIC_DB,
@@ -246,26 +277,31 @@ class UserDAO {
                 UpdateExpression: updateExpression,
                 ExpressionAttributeValues: expressionAttributeValues,
             };
-            await this.client.update(params).promise();
+            try {
+                await client.update(params).promise();
+            } catch (err) {
+                console.log("Error removing friend: ", err);
+            }
         }
     }
     async removeFriend(userEmail, friendEmail) {
+        const client = new AWS.DynamoDB.DocumentClient();
         const sk1 = `${userEmail}-${friendEmail}`;
         const sk2 = `${friendEmail}-${userEmail}`;
 
         const params1 = {
-            pk: "interests",
-            sk: sk1,
+            TableName: process.env.CYCLIC_DB,
+            Key: { pk: "friends", sk: sk1 },
         };
         const params2 = {
-            pk: "interests",
-            sk: sk2,
+            TableName: process.env.CYCLIC_DB,
+            Key: { pk: "friends", sk: sk2 },
         };
         try {
-            await this.client.delete(params1).promise();
-            await this.client.delete(params2).promise();
-        } catch (error) {
-            console.log("Error removing friend: ", error);
+            await client.delete(params1).promise();
+            await client.delete(params2).promise();
+        } catch (err) {
+            console.log("Error removing friend: ", err);
         }
     }
 }

@@ -9,7 +9,7 @@
  *
  */
 class Meeting {
-    id = "";
+    meetingId = "";
     participants = "";
     datetime = "";
     title = "";

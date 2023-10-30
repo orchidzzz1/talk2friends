@@ -3,11 +3,11 @@ Using Firebase for Google authentication/email, Cyclic for hosting and AWS datab
 
 ## Database schema
 ### Users
-email (string, unique id) |  name (string) | affiliation (string) | international (bool: 1 if true else false)
+email (string, unique id) |  userName (string) | affiliation (string) | international (bool: 1 if true else false)
 ### Interests
-id (string: email+interest)
+id (string: email+interest) | interest (string)
 ### Friends
-id (string: email1+email2)| accepted (bool) | 
+id (string: email1+email2)| accepted (bool) | sender (string) | receiver (string)
 ### Meetings
 id (string: creator's email+datetime at creation) | title (string) | datetime (string: datetime of the event) | description (string) | location (string)
 ### Participations
@@ -23,9 +23,9 @@ Note: use '-' in between each string concatenation
 
 /api/user/get (GET Route): Outputs {user: user object}
 
-/api/user/add: user = {name, affiliation, international, interests[]} 
+/api/user/add: user = {userName, affiliation, international, interests[]} 
 
-/api/user/update: name, affiliation, international
+/api/user/update: userName, affiliation, international
 
 /api/user/friends/add: friendEmail
 
@@ -35,7 +35,7 @@ Note: use '-' in between each string concatenation
 
 /api/user/removeInterest: interest
 
-/api/user/friends/recommended (GET Route): interests[]. Outputs {users: [{userEmail: list of interests in common}, ]}
+/api/user/friends/recommended (GET Route): interests[]. Outputs {users: {userEmail: [list of interests in common], ...}}
 
 /api/user/recommend: email, userName
 
@@ -46,7 +46,7 @@ Note: use '-' in between each string concatenation
 ### Meeting routes
 /api/meeting/get (GET Route): Outputs {meetings: list of meeting objects}
 
-/api/meeting/edit: title description, datetime, location
+/api/meeting/edit: title, description, datetime, location
 
 /api/meeting/create: title, description, datetime, location
 

@@ -65,6 +65,7 @@ async function removeMeeting(req, res) {
         if (!meetingId.includes(email)) {
             throw new Error("Unauthorized");
         }
+        await db.removeParticipant(meetingId, email);
         await db.removeMeeting(meetingId);
         res.sendStatus(200);
     } catch (error) {

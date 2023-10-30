@@ -1,7 +1,7 @@
 /**
  * Data objects to store information
  * @param email: unique id
- * @param name: display name
+ * @param userName: display name
  * @param affiliation: user's school/department
  * @param international (bool):
  * @param interests: list of interest (string)
@@ -12,7 +12,7 @@
  */
 class User {
     email = "";
-    name = "";
+    userName = "";
     affiliation = ""; //
     international = false;
     interests = [];
