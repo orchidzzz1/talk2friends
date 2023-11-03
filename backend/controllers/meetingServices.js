@@ -1,6 +1,6 @@
 const Database = require("./../DAO/meetingDAO");
 const db = new Database();
-const Meeting = require("./..//models/meeting");
+const Meeting = require("./../models/meeting");
 
 async function createMeeting(req, res) {
     try {

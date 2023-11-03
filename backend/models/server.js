@@ -52,7 +52,7 @@ class Server {
     // Bind controllers to routes
     routes() {
         // middleware for verifying authorization
-        this.app.use(verify);
+        //this.app.use(verify);
 
         // user routes
         this.app.get("/api/user/authorize", user.authorize);
@@ -66,14 +66,14 @@ class Server {
         this.app.get("/api/user/friends/recommended", user.getRecommended);
         this.app.post("/api/user/recommend", user.sendRecommendation);
         this.app.post("/api/user/sendVerification", user.sendVerification);
-        this.app.post("/api/user/verify", user.verifyRegistration);
+        this.app.post("/api/user/verify", user.verify);
         // meeting routes
         this.app.get("/api/meeting/get", meeting.getAllMeetings);
         this.app.post("/api/meeting/edit", meeting.editMeeting);
-        this.app.post("api/meeting/create", meeting.createMeeting);
-        this.app.post("api/meeting/remove", meeting.removeMeeting);
-        this.app.post("api/meeting/rsvp", meeting.addParticipant);
-        this.app.post("api/meeting/cancel", meeting.removeParticipant);
+        this.app.post("/api/meeting/create", meeting.createMeeting);
+        this.app.post("/api/meeting/remove", meeting.removeMeeting);
+        this.app.post("/api/meeting/rsvp", meeting.addParticipant);
+        this.app.post("/api/meeting/cancel", meeting.removeParticipant);
     }
 
     listen() {

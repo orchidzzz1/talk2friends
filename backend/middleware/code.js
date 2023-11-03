@@ -3,7 +3,7 @@ const NodeCache = require("node-cache");
 const codeCache = new NodeCache();
 
 function generate6DigitCode() {
-    const code = Math.random(100000, 1000000);
+    const code = Math.floor(Math.random(100000, 1000000) * 1000000) + 100000;
     return code;
 }
 

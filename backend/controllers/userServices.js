@@ -83,9 +83,9 @@ async function sendVerification(req, res) {
         const userEmail = req.query.userEmail;
         // send email for new code
         const subject = "Here's your verification code from Talk2Friends";
-        const body = `Verification code: ${code}. \nThis code expires in 2 minutes. Enter this code to continue with your registration.`;
+        const body = `Verification code: ${code.toString()}. \n\nThis code expires in 2 minutes. Enter this code to continue with your registration. \n\nTalk2Friends Team`;
         emailServices.send(userEmail, subject, body);
-
+        console.log(code);
         // add new code to cache
         codeServices.addCode(userEmail, code);
         res.status(200).json({ isVerified: false });
@@ -119,8 +119,8 @@ async function sendRecommendation(req, res) {
         const userName = data.userName;
         const linkToApp = "";
         const subject = `Invite from ${userName} to join Talk2Friends`;
-        const body = `Hello! \n\nMeet Talk2Friends! It's the app I use to connect with students at USC and practice my language skills with. It has been a great app that helped me to improve as well as to have fun! \n Try it out and see you in the app! \n${linkToApp}\n\n${userName}`;
-        emailServices.send(email, subject, body);
+        const body = `Hello! \n\nMeet Talk2Friends!\nIt's the app I use to connect with students at USC and practice my language skills with. It has been a great app that helped me to improve as well as to have fun! \n\nTry it out and see you in the app! \n${linkToApp}\n\n${userName}`;
+        await emailServices.send(email, subject, body);
         res.sendStatus(200);
     } catch (error) {
         res.sendStatus(500);
