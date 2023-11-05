@@ -16,19 +16,19 @@
         tools:targetApi="31">
         <activity
             android:name=".LoginPageActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".AuthenticationPageActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".RecommendPageActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".VerificationPageActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".createMeetingActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

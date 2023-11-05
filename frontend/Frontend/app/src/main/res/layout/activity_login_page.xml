@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize"
-    tools:context=".LoginPageActivity">
+    android:paddingTop="?attr/actionBarSize">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".LoginPageActivity">
 
         <!-- Title TextView -->
         <TextView
@@ -33,6 +33,14 @@
                 android:layout_width="200dp"
                 android:layout_height="75dp"
                 android:text="Login With Google"
+                android:layout_gravity="center" />
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="200dp"
+                android:layout_height="75dp"
+                android:layout_marginTop="150dp"
+                android:text="Register a New Account"
                 android:layout_gravity="center" />
         </LinearLayout>
     </RelativeLayout>
