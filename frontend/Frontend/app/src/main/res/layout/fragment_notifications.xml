@@ -21,19 +21,66 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp" />
 
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="40dp"
+            android:layout_marginTop="60dp">
+
+            <!-- User's Name -->
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="USER NAME"
+                android:textSize="36sp" />
+
+            <!-- User's Email -->
+            <TextView
+                android:id="@+id/emailTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="email@usc.edu"
+                android:textSize="24sp" />
+
+            <!-- User's Affiliation -->
+            <TextView
+                android:id="@+id/affiliationTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Affiliation: STUDENT"
+                android:textSize="24sp" />
+
+            <!-- User's Role -->
+            <TextView
+                android:id="@+id/roleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Role: INTERNATIONAL"
+                android:textSize="24sp" />
+
+            <!-- Created Meetings -->
+            <TextView
+                android:id="@+id/createdMeetingsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Created Meetings"
+                android:textSize="24sp" />
+
+            <!--Meeting List-->
+            <ListView
+                android:id="@+id/createdMeetingsListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/black"
+                android:dividerHeight="2dp"
+                android:listSelector="@color/purple_200"
+                />
+
+        </LinearLayout>
+
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
