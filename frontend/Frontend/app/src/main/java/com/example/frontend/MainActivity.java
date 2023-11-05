@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
     String meetingsList[] = {"Sample Meeting 1", "Sample Meeting 2", "Sample Meeting 3", "Sample Meeting 4"};
     ListView meetingListView;
 
-    String friendsList[] = {"Alexis Situ", "Hang Nguyen", "Easton Zhang"};
-    ListView friendListView;
+    //String friendsList[] = {"Alexis Situ", "Hang Nguyen", "Easton Zhang"};
+    //ListView friendListView;
 
     //Button searchButton = findViewById(R.id.friendSearchButton);
     //EditText friendNameEditText = findViewById(R.id.friendNameEditText);
@@ -43,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
         // INITIALIZE MEETING LIST VIEW
         meetingListView = (ListView) findViewById(R.id.meetingListView);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_meeting_list_view, R.id.meetingTextView, meetingsList);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, meetingsList);
         meetingListView.setAdapter(arrayAdapter);
 
         // INITIALIZE Friend list view
         //friendListView = (ListView) findViewById(R.id.friendsListView);
-        //ArrayAdapter<String> arrayAdapterFriends = new ArrayAdapter<String>(this, R.layout.activity_friend_list_view, R.id.friendsTextView, friendsList);
+        //ArrayAdapter<String> arrayAdapterFriends = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, friendsList);
         //friendListView.setAdapter(arrayAdapterFriends);
 
 
