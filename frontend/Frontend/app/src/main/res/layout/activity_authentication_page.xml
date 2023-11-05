@@ -25,28 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="80dp">
-
-            <EditText
-                android:id="@+id/loginUsername"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:hint="Enter Login Username"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/loginPassword"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:hint="Enter Login Password"
-                android:inputType="text" />
-
-            <Button
-                android:id="@+id/loginButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:layout_gravity="center" />
+            android:layout_marginTop="120dp">
 
             <EditText
                 android:id="@+id/registerUsername"
@@ -74,13 +53,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Enter Role"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/registerPassword"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Create Password"
                 android:inputType="text" />
 
             <Button
