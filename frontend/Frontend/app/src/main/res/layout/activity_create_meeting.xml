@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".createMeetingActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Title TextView -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="24sp"
+            android:layout_centerHorizontal="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="80dp">
+
+            <EditText
+                android:id="@+id/meetingNameText"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:hint="Enter Meeting Name"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/meetingDateText"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:hint="Enter Meeting Date"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/meetingTimeText"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:hint="Enter Meeting Time"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/meetingDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:hint="Enter Meeting Description"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/meetingLocationText"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:hint="Enter Meeting Location"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/createNewMeetingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Meeting"
+                android:layout_gravity="center" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

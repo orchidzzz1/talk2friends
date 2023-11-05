@@ -1,6 +1,9 @@
 package com.example.frontend;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     String meetingsList[] = {"Sample Meeting 1", "Sample Meeting 2", "Sample Meeting 3", "Sample Meeting 4"};
     ListView meetingListView;
+
+    private Button goCreateMeetingButton;
 
     //String friendsList[] = {"Alexis Situ", "Hang Nguyen", "Easton Zhang"};
     //ListView friendListView;
@@ -46,12 +51,26 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, meetingsList);
         meetingListView.setAdapter(arrayAdapter);
 
+        // initialize go to create meeting page button
+        goCreateMeetingButton = (Button) findViewById(R.id.goMeetingPageButton);
+        goCreateMeetingButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                openCreateMeetingPage();
+            }
+        });
+
         // INITIALIZE Friend list view
         //friendListView = (ListView) findViewById(R.id.friendsListView);
         //ArrayAdapter<String> arrayAdapterFriends = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, friendsList);
         //friendListView.setAdapter(arrayAdapterFriends);
 
 
+    }
+
+    public void openCreateMeetingPage(){
+        Intent intent = new Intent(this, createMeetingActivity.class);
+        startActivity(intent);
     }
 
 
