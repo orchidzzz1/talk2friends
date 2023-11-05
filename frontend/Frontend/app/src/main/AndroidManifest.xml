@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Frontend"
         tools:targetApi="31">
         <activity
+            android:name=".RecommendPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".VerificationPageActivity"
             android:exported="false" />
         <activity

@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".FriendsActivity">
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,13 +33,34 @@
                 android:hint="Enter friend's name"
                 android:inputType="text" />
 
-            <!-- Button to initiate the search -->
-            <Button
-                android:id="@+id/friendSearchButton"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Search"
-                android:layout_gravity="center" />
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <!-- Button to initiate the search -->
+                <Button
+                    android:id="@+id/friendSearchButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Search"
+                    android:layout_weight="1"
+                    android:layout_margin="6dp"
+                    android:layout_gravity="center" />
+
+                <!-- Button to initiate find new friends -->
+                <Button
+                    android:id="@+id/goRecommendPageButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Find New Friends"
+                    android:layout_weight="1"
+                    android:layout_margin="6dp"
+                    android:layout_gravity="center" />
+
+            </LinearLayout>
 
             <!--Friend List-->
             <ListView

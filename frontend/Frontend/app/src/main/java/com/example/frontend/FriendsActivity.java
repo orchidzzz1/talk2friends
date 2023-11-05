@@ -15,12 +15,15 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.frontend.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
-
+public class FriendsActivity extends AppCompatActivity{
     private ActivityMainBinding binding;
-    String meetingsList[] = {"Sample Meeting 1", "Sample Meeting 2", "Sample Meeting 3", "Sample Meeting 4"};
-    ListView meetingListView;
-    private Button goCreateMeetingButton;
+    private Button goRecommendPageButton;
+
+    String friendsList[] = {"Alexis Situ", "Hang Nguyen", "Easton Zhang"};
+    ListView friendListView;
+
+    //Button searchButton = findViewById(R.id.friendSearchButton);
+    //EditText friendNameEditText = findViewById(R.id.friendNameEditText);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +42,25 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        // INITIALIZE MEETING LIST VIEW
-        meetingListView = (ListView) findViewById(R.id.meetingListView);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, meetingsList);
-        meetingListView.setAdapter(arrayAdapter);
-
-        // initialize go to create meeting page button
-        goCreateMeetingButton = (Button) findViewById(R.id.goMeetingPageButton);
-        goCreateMeetingButton.setOnClickListener(new View.OnClickListener(){
+        // initialize go to recommend page button
+        goRecommendPageButton = (Button) findViewById(R.id.goRecommendPageButton);
+        goRecommendPageButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                openCreateMeetingPage();
+                openRecommendPage();
             }
         });
+
+        // INITIALIZE Friend list view
+        friendListView = (ListView) findViewById(R.id.friendsListView);
+        ArrayAdapter<String> arrayAdapterFriends = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, friendsList);
+        friendListView.setAdapter(arrayAdapterFriends);
+
+
     }
 
-    public void openCreateMeetingPage(){
-        Intent intent = new Intent(this, createMeetingActivity.class);
+    public void openRecommendPage(){
+        Intent intent = new Intent(this, RecommendPageActivity.class);
         startActivity(intent);
     }
-
 }
