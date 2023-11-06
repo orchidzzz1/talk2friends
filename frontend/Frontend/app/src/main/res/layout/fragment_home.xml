@@ -39,7 +39,6 @@
                 android:layout_height="match_parent"
                 android:divider="@color/black"
                 android:dividerHeight="2dp"
-                android:listSelector="@color/purple_200"
                 />
 
 

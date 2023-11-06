@@ -35,13 +35,7 @@
                 android:text="Login With Google"
                 android:layout_gravity="center" />
 
-            <Button
-                android:id="@+id/registerButton"
-                android:layout_width="200dp"
-                android:layout_height="75dp"
-                android:layout_marginTop="150dp"
-                android:text="Register a New Account"
-                android:layout_gravity="center" />
+
         </LinearLayout>
     </RelativeLayout>
 

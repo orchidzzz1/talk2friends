@@ -42,13 +42,6 @@
                 android:text="USER NAME"
                 android:textSize="36sp" />
 
-            <!-- User's Email -->
-            <TextView
-                android:id="@+id/emailTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="email@usc.edu"
-                android:textSize="24sp" />
 
             <!-- User's Affiliation -->
             <TextView

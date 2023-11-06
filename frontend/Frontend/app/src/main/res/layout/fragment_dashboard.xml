@@ -27,10 +27,10 @@
 
             <!-- EditText for typing friend's name -->
             <EditText
-                android:id="@+id/friendNameEditText"
+                android:id="@+id/friendEmailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="Enter friend's name"
+                android:hint="Enter friend's email to refer"
                 android:inputType="text" />
 
             <LinearLayout
@@ -42,10 +42,10 @@
 
                 <!-- Button to initiate the search -->
                 <Button
-                    android:id="@+id/friendSearchButton"
+                    android:id="@+id/friendRecommendBtn"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Search"
+                    android:text="Recommend"
                     android:layout_weight="1"
                     android:layout_margin="6dp"
                     android:layout_gravity="center" />
@@ -55,7 +55,7 @@
                     android:id="@+id/goRecommendPageButton"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Find New Friends"
+                    android:text="Find Recommended"
                     android:layout_weight="1"
                     android:layout_margin="6dp"
                     android:layout_gravity="center" />

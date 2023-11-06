@@ -21,7 +21,7 @@ public class LocalStorage {
     }
 
     public static String getToken(Context context) {
-        return getSharedPreferences(context).getString(KEY_TOKEN, null);
+        return getSharedPreferences(context).getString(KEY_TOKEN, "");
     }
 
     public static void saveAuthenticated(Context context, boolean isAuthenticated) {

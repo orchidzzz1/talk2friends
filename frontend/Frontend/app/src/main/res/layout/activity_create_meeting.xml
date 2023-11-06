@@ -33,21 +33,6 @@
                 android:layout_height="80dp"
                 android:hint="Enter Meeting Name"
                 android:inputType="text" />
-
-            <EditText
-                android:id="@+id/meetingDateText"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:hint="Enter Meeting Date"
-                android:inputType="text" />
-
-            <EditText
-                android:id="@+id/meetingTimeText"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:hint="Enter Meeting Time"
-                android:inputType="text" />
-
             <EditText
                 android:id="@+id/meetingDescriptionText"
                 android:layout_width="match_parent"
@@ -55,12 +40,53 @@
                 android:hint="Enter Meeting Description"
                 android:inputType="text" />
 
-            <EditText
-                android:id="@+id/meetingLocationText"
+            <TextView
+                android:id="@+id/meetingDateTimeText"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:hint="Enter Meeting Location"
-                android:inputType="text" />
+                android:layout_height="80dp"/>
+            <Button
+                android:id="@+id/btnPickDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pick date"
+                android:layout_gravity="center" />
+            <Button
+                android:id="@+id/btnPickTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pick time"
+                android:layout_gravity="center" />
+
+
+            <RadioGroup
+                android:id="@+id/radioGroupLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RadioButton
+                    android:id="@+id/radioZoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Zoom"/>
+
+                <RadioButton
+                    android:id="@+id/radioPhysical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Physical"/>
+            </RadioGroup>
+            <!-- Fields for Physical -->
+            <EditText
+                android:id="@+id/editTextPhysicalLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radioGroupLocation"
+                android:layout_marginTop="16dp"
+                android:hint="Enter Physical Location"
+                android:inputType="text"
+                android:visibility="gone"/>
+
 
             <Button
                 android:id="@+id/createNewMeetingButton"

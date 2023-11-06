@@ -52,7 +52,7 @@ class Server {
     // Bind controllers to routes
     routes() {
         // middleware for verifying authorization
-        //this.app.use(verify);
+        this.app.use(verify);
 
         // user routes
         this.app.get("/api/user/authorize", user.authorize);

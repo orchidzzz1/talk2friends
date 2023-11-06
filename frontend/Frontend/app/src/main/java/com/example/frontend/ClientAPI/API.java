@@ -1,5 +1,6 @@
 package com.example.frontend.ClientAPI;
-import okhttp3.FormBody;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -13,6 +14,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class API {
     private String BASE_URL = "";
@@ -35,16 +38,30 @@ public class API {
                 .url(url)
                 .addHeader("Authorization", "Bearer " + this.AUTH_TOKEN)
                 .build();
+        CompletableFuture<JSONObject> f = new CompletableFuture<>();
         try {
-            Response response = client.newCall(request).execute();
-//            if(response.code == 401){
-//                // unauthorized and need to authorize again
-//            }
-            assert response.body() != null;
-            return processJsonResponse(response.body().string());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new JSONObject();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    System.out.println("Request failed: " + e.getMessage());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    // Check if the response is successful (HTTP code 200-299)
+                    if (response.isSuccessful()) {
+                        // Handle the response data here
+                        f.complete(processJsonResponse(response.body().string()));
+                    } else {
+                        System.out.println("Request failed with code: " + response.code());
+                    }
+                }
+            });
+            return f.get();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -60,16 +77,30 @@ public class API {
                 .post(requestBody)
                 .addHeader("Authorization", "Bearer " + this.AUTH_TOKEN)
                 .build();
+        CompletableFuture<JSONObject> f = new CompletableFuture<>();
         try {
-            Response response = client.newCall(request).execute();
-//            if(response.code == 401){
-//                // unauthorized and need to authorize again
-//            }
-            assert response.body() != null;
-            return processJsonResponse(response.body().string());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new JSONObject();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    System.out.println("Request failed: " + e.getMessage());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    // Check if the response is successful (HTTP code 200-299)
+                    if (response.isSuccessful()) {
+                        // Handle the response data here
+                        f.complete(processJsonResponse(response.body().string()));
+                    } else {
+                        System.out.println("Request failed with code: " + response.code());
+                    }
+                }
+            });
+            return f.get();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 

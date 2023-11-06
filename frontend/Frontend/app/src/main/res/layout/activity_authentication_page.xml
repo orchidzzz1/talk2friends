@@ -33,25 +33,30 @@
                 android:inputType="text" />
 
             <EditText
-                android:id="@+id/registerEmail"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Enter Email"
-                android:inputType="text" />
-
-            <EditText
                 android:id="@+id/registerAffiliation"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Enter Affiliation"
                 android:inputType="text" />
 
-            <EditText
+            <RadioGroup
                 android:id="@+id/registerRole"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Enter Role"
-                android:inputType="text" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <RadioButton
+                    android:id="@+id/radioInternational"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="International"/>
+
+                <RadioButton
+                    android:id="@+id/radioNative"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Native Speaker"/>
+            </RadioGroup>
 
             <LinearLayout
                 android:layout_width="match_parent"

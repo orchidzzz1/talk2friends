@@ -124,8 +124,9 @@ public class ClientAPI{
         JSONObject res = API.makeGetRequest("/meeting/get", new JSONObject());
         Gson gson = new Gson();
         // parse to create array of meetings
+        System.out.println(res);
         JSONArray jsonArr = res.getJSONArray("meetings");
-        Type MeetingList = new TypeToken<List<Meeting>>(){}.getType();
+        Type MeetingList = new TypeToken<Meeting[]>(){}.getType();
         return gson.fromJson(String.valueOf(jsonArr), MeetingList);
     }
 
