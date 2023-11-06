@@ -36,7 +36,7 @@ public class API {
         String url = urlBuilder.build().toString();
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("Authorization", "Bearer " + this.AUTH_TOKEN)
+                .addHeader("Authorization", this.AUTH_TOKEN)
                 .build();
         CompletableFuture<JSONObject> f = new CompletableFuture<>();
         try {
@@ -75,7 +75,7 @@ public class API {
         Request request = new Request.Builder()
                 .url(apiUrl)
                 .post(requestBody)
-                .addHeader("Authorization", "Bearer " + this.AUTH_TOKEN)
+                .addHeader("Authorization", this.AUTH_TOKEN)
                 .build();
         CompletableFuture<JSONObject> f = new CompletableFuture<>();
         try {
