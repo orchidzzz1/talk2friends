@@ -87,6 +87,7 @@ public class GoogleAuth{
                                                     if(verified){
                                                         openMainPage();
                                                     }else{
+                                                        api.sendVerification();
                                                         openVerifyPage();
                                                     }
                                                 } catch (JSONException e) {

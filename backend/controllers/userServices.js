@@ -13,7 +13,7 @@ async function authorize(req, res) {
         res.status(200).json({ isVerified: true, user: user });
     } else {
         // else redirect to send verification code
-        res.status(200).redirect("/sendVerification");
+        res.status(200).json({ isVerified: false });
     }
 }
 
