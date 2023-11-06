@@ -33,7 +33,7 @@ async function editMeeting(req, res) {
 }
 async function getAllMeetings(req, res) {
     const meetings = await db.getAllMeetings();
-    res.json(meetings);
+    res.json({ meetings: meetings });
 }
 
 async function addParticipant(req, res) {
