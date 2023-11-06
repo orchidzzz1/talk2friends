@@ -28,7 +28,7 @@ async function get(req, res) {
 async function add(req, res) {
     try {
         const data = req.body;
-        const user = data.user;
+        var user = data.user;
         user.email = req.query.userEmail;
         await db.addUser(data.user);
         res.sendStatus(200);
