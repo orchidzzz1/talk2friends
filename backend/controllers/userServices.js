@@ -30,7 +30,7 @@ async function add(req, res) {
         const data = req.body;
         var user = data;
         user.email = req.query.userEmail;
-        await db.addUser(data.user);
+        await db.addUser(user);
         res.sendStatus(200);
     } catch (error) {
         res.sendStatus(500);
