@@ -83,7 +83,7 @@ async function sendVerification(req, res) {
         const userEmail = req.query.userEmail;
         // send email for new code
         const subject = "Here's your verification code from Talk2Friends";
-        const body = `Verification code: ${code.toString()}. \n\nThis code expires in 2 minutes. Enter this code to continue with your registration. \n\nTalk2Friends Team`;
+        const body = `Verification code: ${code.toString()}. \n\nThis code expires in 10 minutes. Enter this code to continue with your registration. \n\nTalk2Friends Team`;
         emailServices.send(userEmail, subject, body);
         console.log(code);
         // add new code to cache

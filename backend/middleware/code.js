@@ -19,7 +19,7 @@ function verifyCode(userEmail, code) {
 
 function addCode(userEmail, code) {
     // add or update code in cache for given userEmail
-    codeCache.set(userEmail, code, 120);
+    codeCache.set(userEmail, code, 600);
 }
 
 module.exports = { generate6DigitCode, addCode, verifyCode };
