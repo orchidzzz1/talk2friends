@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,7 +32,7 @@ import org.json.JSONException;
 public class createMeetingActivity extends AppCompatActivity {
 
     private Button createMeetingButton;
-    ClientAPI api = new ClientAPI(this);
+    ClientAPI api;
     private Calendar selectedDateTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class createMeetingActivity extends AppCompatActivity {
         RadioGroup radioGroupLocation =  findViewById(R.id.radioGroupLocation);
         RadioButton radioZoom = (RadioButton)findViewById(R.id.radioZoom);
         RadioButton radioPhysical = (RadioButton)findViewById(R.id.radioPhysical);
-        EditText editTextPhysicalLocation = findViewById(R.id.editTextPhysicalLocation);
+        EditText editTextPhysicalLocation = findViewById(R.id.editTextLocation);
         radioZoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,9 +84,11 @@ public class createMeetingActivity extends AppCompatActivity {
 
         // initialize create meeting button
         createMeetingButton = (Button) findViewById(R.id.createNewMeetingButton);
+        api = new ClientAPI(this);
         createMeetingButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
                 // get the details and pass to backend
                 EditText titleEdit = findViewById(R.id.meetingNameText);
                 String title = titleEdit.getText().toString();
@@ -94,7 +97,7 @@ public class createMeetingActivity extends AppCompatActivity {
                 String location;
                 TextView textViewSelectedDateTime = findViewById(R.id.meetingDateTimeText);
                 String dateTimeStr = textViewSelectedDateTime.getText().toString();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
                 Date date = null;
                 String timeInMillis;
                 try {
@@ -105,14 +108,14 @@ public class createMeetingActivity extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
 
-                EditText locationEdit = findViewById(R.id.meetingNameText);
+                EditText locationEdit = findViewById(R.id.editTextLocation);
                 location = locationEdit.getText().toString();
 
                 Meeting meeting = new Meeting("0", title, timeInMillis, new String[]{}, desc, location);
                 try {
                     api.addMeeting(meeting);
                 } catch (JSONException e) {
-
+                    System.out.println("Failed to create meeting");
                 }
 
                 openMeetingsPage();

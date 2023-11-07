@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".HomeFragment">
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="633dp"
             android:layout_marginTop="80dp"
             android:orientation="vertical">
 
@@ -30,16 +30,15 @@
                 android:id="@+id/goMeetingPageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create New Meeting"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:text="Create New Meeting" />
 
             <ListView
                 android:id="@+id/meetingListView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="@color/black"
-                android:dividerHeight="2dp"
-                />
+                android:dividerHeight="2dp" />
 
 
         </LinearLayout>

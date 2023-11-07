@@ -42,7 +42,7 @@ public class LocalStorage {
     }
     public static void saveUserName(Context context, String userName) {
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
-        editor.putString(KEY_TOKEN, userName);
+        editor.putString(KEY_USERNAME, userName);
         editor.apply();
     }
 
@@ -51,15 +51,15 @@ public class LocalStorage {
     }
     public static void saveInterests(Context context, String[] interests) {
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
-        editor.putString(KEY_TOKEN, String.join(",",interests));
+        editor.putString(KEY_INTERESTS, String.join(",",interests));
         editor.apply();
     }
 
     public static String[] getInterests(Context context) {
         try{
-            return (getSharedPreferences(context).getString(KEY_INTERESTS, null)).split(",");
+            return (getSharedPreferences(context).getString(KEY_INTERESTS, "")).split(",");
         }catch(NullPointerException error){
-            String[] interests = new String[0];
+            String[] interests = new String[]{};
             return interests;
         }
 

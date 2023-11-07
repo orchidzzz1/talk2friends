@@ -2,19 +2,22 @@ package com.example.frontend;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.frontend.ClientAPI.ClientAPI;
 
 import org.json.JSONException;
 
 public class VerificationPageActivity extends AppCompatActivity {
-    ClientAPI api = new ClientAPI(this);
+    ClientAPI api;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,7 @@ public class VerificationPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_verification_page);
         Button verifyButton = findViewById(R.id.verifyButton);
         Context context = this;
+        api = new ClientAPI(context);
         verifyButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -32,10 +36,10 @@ public class VerificationPageActivity extends AppCompatActivity {
                     int code = Integer.parseInt(inputValue);
                     boolean verified = api.verify(code);
                     if(verified){
-                        openMainPage();
+                        openRegistrationPage();
                     }else{
-                        String errorMessage = "Wrong verification code";
-                        errorDialog.showErrorDialog(context, errorMessage);
+                        Toast.makeText(context, "Wrong code.", Toast.LENGTH_SHORT).show();
+
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -53,8 +57,8 @@ public class VerificationPageActivity extends AppCompatActivity {
             }
         });
     }
-    public void openMainPage(){
-        Intent intent = new Intent(this, MainActivity.class);
+    public void openRegistrationPage(){
+        Intent intent = new Intent(this, AuthenticationPageActivity.class);
         this.startActivity(intent);
     }
 }

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.frontend.ClientAPI.ClientAPI;
 import com.example.frontend.models.Meeting;
+import com.example.frontend.ui.dashboard.DashboardFragment;
 import com.google.android.gms.common.api.Api;
 
 import org.json.JSONException;
@@ -29,20 +30,21 @@ import java.util.Map;
 public class RecommendPageActivity extends AppCompatActivity {
     private Button returnFriendsPageButton;
     Map<String, List<String>> res;
+    ClientAPI api;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend_page);
-        ClientAPI api = new ClientAPI(this);
+        api = new ClientAPI(this);
+
         try {
             res = api.getRecommended();
         } catch (JSONException e) {
             res = new HashMap<String, List<String>>(){};
         }
         generateUsers(res);
-
 
         // initialize return button
         returnFriendsPageButton = (Button) findViewById(R.id.returnToFriendsPage);
@@ -88,7 +90,7 @@ public class RecommendPageActivity extends AppCompatActivity {
 
 
     public void returnFriendsPage(){
-        Intent intent = new Intent(this, FriendsActivity.class);
+        Intent intent = new Intent(this, DashboardFragment.class);
         startActivity(intent);
     }
 

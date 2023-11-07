@@ -35,8 +35,12 @@ public class ClientAPI{
     }
     public User getUser() throws JSONException {
         JSONObject res = API.makeGetRequest("/user/get", new JSONObject());
+        JSONObject userJson = res.getJSONObject("user");
+        userJson.remove("pk");
+        userJson.remove("sk");
+        System.out.println(userJson);
         Gson gson = new Gson();
-        User user = gson.fromJson(String.valueOf(res), User.class);
+        User user = gson.fromJson(String.valueOf(userJson), User.class);
         // save some info to local storage
         store.saveUserName(this.context, user.getUserName());
         store.saveInterests(this.context, user.getInterests());
@@ -46,6 +50,8 @@ public class ClientAPI{
     public void addUser(User user) throws JSONException {
         Gson gson = new Gson();
         JSONObject json = new JSONObject(gson.toJson(user));
+        System.out.println(user);
+        System.out.println(json);
         API.makePostRequest("/user/add", json);
     }
 
@@ -86,19 +92,21 @@ public class ClientAPI{
         String userName = store.getUserName(this.context);
         params.put("userName", userName);
 
-        API.makePostRequest("/user/friends/recommend", params);
+        API.makePostRequest("/user/recommend", params);
     }
     public Map<String, List<String>> getRecommended() throws JSONException {
         JSONObject params = new JSONObject();
         String[] interests = store.getInterests(this.context);
-        params.put("interests", interests);
-        JSONObject res = this.API.makeGetRequest("/user/friends/recommended", params);
+        JSONArray jsonInterests = new JSONArray(interests);
+
+        params.put("interests", jsonInterests);
+        JSONObject res = API.makeGetRequest("/user/friends/recommended", params);
         Map<String, List<String>> users = new HashMap();
         // parse to create array of users
         for (Iterator<String> it = res.keys(); it.hasNext(); ) {
             String key = it.next();
             List<String> userInterests = new ArrayList<>();
-            JSONArray vals = (JSONArray) res.get(key);
+            JSONArray vals = new JSONArray(res.get(key).toString());
             for (int i = 0; i < vals.length(); i++) {
                 JSONObject val = vals.getJSONObject(i);
                 userInterests.add(val.toString());
@@ -117,14 +125,16 @@ public class ClientAPI{
     public void addMeeting(Meeting meeting) throws JSONException {
         Gson gson = new Gson();
         JSONObject json = new JSONObject(gson.toJson(meeting));
-        API.makePostRequest("/meeting/add", json);
+        API.makePostRequest("/meeting/create", json);
     }
 
     public Meeting[] getMeetings() throws JSONException {
         JSONObject res = API.makeGetRequest("/meeting/get", new JSONObject());
         Gson gson = new Gson();
+        res.remove("pk");
+        res.remove("sk");
+        res.put("participants", new String[]{});
         // parse to create array of meetings
-        System.out.println(res);
         JSONArray jsonArr = res.getJSONArray("meetings");
         Type MeetingList = new TypeToken<Meeting[]>(){}.getType();
         return gson.fromJson(String.valueOf(jsonArr), MeetingList);

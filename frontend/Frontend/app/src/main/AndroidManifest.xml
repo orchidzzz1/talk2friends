@@ -27,6 +27,9 @@
             android:name=".AuthenticationPageActivity"
             android:exported="true" />
         <activity
+            android:name=".ProfilePageActivity"
+            android:exported="true" />
+        <activity
             android:name=".RecommendPageActivity"
             android:exported="true" />
         <activity
@@ -34,6 +37,12 @@
             android:exported="true" />
         <activity
             android:name=".createMeetingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".FriendsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MeetingActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

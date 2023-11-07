@@ -12,16 +12,16 @@ public class User {
 
     private String[] friends;
     private String[] requests;
-    private Meeting[] createdMeetings;
+    private Meeting[] meetings;
 
     // Constructor
-    public User(String userName, String email, String[] interests, String affiliation, boolean international, String[] friends, String[] requests, Meeting[] createdMeetings) {
+    public User(String userName, String email, String[] interests, String affiliation, boolean international, String[] friends, String[] requests, Meeting[] meetings) {
         this.userName = userName;
         this.email = email;
         this.interests = interests;
         this.affiliation = affiliation;
         this.international = international;
-        this.createdMeetings = createdMeetings;
+        this.meetings = meetings;
         this.requests = requests;
         this.friends = friends;
     }
@@ -43,8 +43,8 @@ public class User {
     public boolean getInternational() {
         return international;
     }
-    public Meeting[] getCreatedMeetings() {
-        return createdMeetings;
+    public Meeting[] getMeetings() {
+        return meetings;
     }
     public String[] getFriends() {
         return friends;

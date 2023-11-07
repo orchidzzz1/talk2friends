@@ -8,6 +8,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,7 +32,8 @@ public class API {
         HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(apiUrl)).newBuilder();
         for (Iterator<String> it = params.keys(); it.hasNext(); ) {
             String key = it.next();
-            urlBuilder.addQueryParameter(key, (String) params.get(key));
+
+            urlBuilder.addQueryParameter(key, params.get(key).toString());
         }
         String url = urlBuilder.build().toString();
         Request request = new Request.Builder()

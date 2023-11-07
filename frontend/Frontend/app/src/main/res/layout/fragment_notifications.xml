@@ -39,7 +39,7 @@
                 android:id="@+id/nameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="USER NAME"
+                android:text="NAME"
                 android:textSize="36sp" />
 
 
@@ -48,7 +48,7 @@
                 android:id="@+id/affiliationTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Affiliation: STUDENT"
+                android:text="Affiliation: "
                 android:textSize="24sp" />
 
             <!-- User's Role -->
@@ -56,23 +56,23 @@
                 android:id="@+id/roleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Role: INTERNATIONAL"
+                android:text="Role: "
                 android:textSize="24sp" />
 
             <!-- Created Meetings -->
-            <TextView
-                android:id="@+id/createdMeetingsTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Created Meetings"
-                android:textSize="24sp" />
+<!--            <TextView-->
+<!--                android:id="@+id/createdMeetingsTextView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Created Meetings"-->
+<!--                android:textSize="24sp" />-->
 
-            <Spinner
-                android:id="@+id/createdMeetingsSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/btn_dropdown"
-                android:spinnerMode="dropdown"/>
+<!--            <Spinner-->
+<!--                android:id="@+id/createdMeetingsSpinner"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@android:drawable/btn_dropdown"-->
+<!--                android:spinnerMode="dropdown"/>-->
 
             <TextView
                 android:id="@+id/interestsTextView"
@@ -89,13 +89,18 @@
                 android:spinnerMode="dropdown"/>
 
             <!--Meeting List-->
-            <!--ListView
+            <TextView
+                android:id="@+id/createdMeetingsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Created Meetings"
+                android:textSize="24sp" />
+
+            <LinearLayout
                 android:id="@+id/createdMeetingsListView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="@color/black"
-                android:dividerHeight="2dp"
-                android:listSelector="@color/purple_200" /-->
+                android:orientation="vertical" />
 
         </LinearLayout>
 

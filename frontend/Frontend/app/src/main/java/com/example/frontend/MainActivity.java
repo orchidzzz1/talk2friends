@@ -2,6 +2,7 @@ package com.example.frontend;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.example.frontend.ClientAPI.ClientAPI;
 import com.example.frontend.models.Meeting;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -19,6 +22,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.frontend.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONException;
 import java.time.Instant;
@@ -28,7 +32,6 @@ import java.time.format.DateTimeFormatter;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-//    String meetingsList[] = {"Sample Meeting 1", "Sample Meeting 2", "Sample Meeting 3", "Sample Meeting 4"};
     ListView meetingListView;
     Meeting[] meetings;
     private Button goCreateMeetingButton;
@@ -39,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ClientAPI api = new ClientAPI(this);
-        try {
-            meetings = api.getMeetings();
-        } catch (JSONException e) {
-            meetings = new Meeting[]{};
-        }
+//        ClientAPI api = new ClientAPI(this);
+//        try {
+//            meetings = api.getMeetings();
+//        } catch (JSONException e) {
+//            meetings = new Meeting[]{};
+//        }
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -56,16 +59,64 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        generateMeetings(meetings);
+//        getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.navigation_home, new MeetingActivity())
+//                    .commit();
 
-        // initialize go to create meeting page button
-        goCreateMeetingButton = (Button) findViewById(R.id.goMeetingPageButton);
-        goCreateMeetingButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                openCreateMeetingPage();
-            }
-        });
+
+
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.navigation_notifications, new ProfilePageActivity())
+//                    .commit();
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.navigation_dashboard, new FriendsActivity())
+//                .commit();
+
+//        navView.setOnItemSelectedListener(
+//                new NavigationBarView.OnItemSelectedListener() {
+//                    @Override
+//                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                        switch (item.getItemId()) {
+//                            case R.id.navigation_home:
+//                                if (savedInstanceState == null) {
+//                                    getSupportFragmentManager().beginTransaction()
+//                                            .replace(R.id.navigation_home, new MeetingActivity())
+//                                            .commit();
+//                                }
+//                                return true;
+//
+//                            case R.id.navigation_dashboard:
+//                                if (savedInstanceState == null) {
+//                                    getSupportFragmentManager().beginTransaction()
+//                                            .replace(R.id.navigation_dashboard, new FriendsActivity())
+//                                            .commit();
+//                                }
+//                            case R.id.navigation_notifications:
+//                                if (savedInstanceState == null) {
+//                                    getSupportFragmentManager().beginTransaction()
+//                                            .replace(R.id.navigation_dashboard, new FriendsActivity())
+//                                            .commit();
+//                                }
+//                            // Add more cases for other tabs as needed
+//
+//                            default:
+//                                return false;
+//                        }
+//                    }
+//                });
+//        generateMeetings(meetings);
+//
+//        // initialize go to create meeting page button
+//        goCreateMeetingButton = (Button) findViewById(R.id.goMeetingPageButton);
+//        goCreateMeetingButton.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v){
+//                openCreateMeetingPage();
+//            }
+//        });
+
+
+
     }
     private void generateMeetings(Meeting[] meetings){
         // create layout dynamically
@@ -105,5 +156,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, createMeetingActivity.class);
         startActivity(intent);
     }
-
+    public void openRecommendPage(){
+        Intent intent = new Intent(this, RecommendPageActivity.class);
+        startActivity(intent);
+    }
 }

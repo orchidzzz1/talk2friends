@@ -78,12 +78,12 @@
             </RadioGroup>
             <!-- Fields for Physical -->
             <EditText
-                android:id="@+id/editTextPhysicalLocation"
+                android:id="@+id/editTextLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/radioGroupLocation"
                 android:layout_marginTop="16dp"
-                android:hint="Enter Physical Location"
+                android:hint="Enter Location"
                 android:inputType="text"
                 android:visibility="gone"/>
 

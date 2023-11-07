@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -33,62 +36,54 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-public class ProfilePageActivity extends AppCompatActivity {
+public class ProfilePageActivity extends Fragment {
 
     private ActivityMainBinding binding;
     User user;
     //String meetingsList[] = {"Sample Meeting 1", "Sample Meeting 2", "Sample Meeting 3", "Sample Meeting 4"};
     //ListView meetingListView;
     //private Button goCreateMeetingButton;
+    FirebaseAuth mAuth;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        ClientAPI api = new ClientAPI(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_notifications, container, false);
+        ClientAPI api = new ClientAPI(getActivity());
         try {
             user = api.getUser();
         } catch (JSONException e) {
             user = null;
             openLoginPage();
         }
-        TextView name = findViewById(R.id.nameTextView);
+        TextView name = view.findViewById(R.id.nameTextView);
         name.setText(user.getUserName());
-        TextView affiliation = findViewById(R.id.affiliationTextView);
+        TextView affiliation = view.findViewById(R.id.affiliationTextView);
         name.setText(user.getAffiliation());
-        TextView role = findViewById(R.id.roleTextView);
+        TextView role = view.findViewById(R.id.roleTextView);
         if(user.getInternational()){
             role.setText("International");
         }else{
             role.setText("Native Speaker");
         }
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+
 
         //get the spinner from the xml.
-        Spinner interestDropDown = findViewById(R.id.interestsSpinner);
+        Spinner interestDropDown = view.findViewById(R.id.interestsSpinner);
         //create a list of items for the spinner.
         String[] interests = user.getInterests();
         //create an adapter to describe how the items are displayed, adapters are used in several places in android.
         //There are multiple variations of this, but this is the basic variant.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, interests);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, interests);
         //set the spinners adapter to the previously created one.
         interestDropDown.setAdapter(adapter);
-        generateCreatedMeetings(user.getCreatedMeetings());
-        Button signoutBtn = findViewById(R.id.signOutButton);
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        generateCreatedMeetings(user.getMeetings());
+        Button signoutBtn = view.findViewById(R.id.signOutButton);
+
         signoutBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                mAuth = FirebaseAuth.getInstance();
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 if(currentUser != null){
                     mAuth.signOut();
@@ -96,12 +91,12 @@ public class ProfilePageActivity extends AppCompatActivity {
                 openLoginPage();
             }
         });
-
+        return view;
     }
     private void generateCreatedMeetings(Meeting[] meetings){
         // create layout dynamically
-        Spinner view =  findViewById(R.id.createdMeetingsSpinner);
-        LayoutInflater li = LayoutInflater.from(this);
+        LinearLayout view =  getView().findViewById(R.id.createdMeetingsListView);
+        LayoutInflater li = LayoutInflater.from(getActivity());
         for (Meeting meeting: meetings) {
             View meetingView = li.inflate(R.layout.meeting_banner, view, false);
             TextView title = meetingView.findViewById(R.id.textViewTitle);
@@ -119,7 +114,7 @@ public class ProfilePageActivity extends AppCompatActivity {
             String formattedDateTime = dateTime.format(formatter);
             location.setText(String.format("Datetime: %s", formattedDateTime));
             Spinner spinner = meetingView.findViewById(R.id.spinnerParticipants);
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, meeting.getParticipants());
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, meeting.getParticipants());
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             // Apply the adapter to the spinner
@@ -136,11 +131,11 @@ public class ProfilePageActivity extends AppCompatActivity {
 
 
     public void openCreateMeetingPage(){
-        Intent intent = new Intent(this, createMeetingActivity.class);
+        Intent intent = new Intent(getActivity(), createMeetingActivity.class);
         startActivity(intent);
     }
     public void openLoginPage(){
-        Intent intent = new Intent(this, LoginPageActivity.class);
+        Intent intent = new Intent(getActivity(), LoginPageActivity.class);
         startActivity(intent);
     }
 
