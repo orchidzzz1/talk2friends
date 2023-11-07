@@ -72,6 +72,7 @@ async function removeInterest(req, res) {
 async function getRecommended(req, res) {
     try {
         const interests = req.query.interests;
+        console.log(interests);
         const users = await db.getRecommended(interests);
         res.status(200).json({ users: users });
     } catch (error) {
