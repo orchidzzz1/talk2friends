@@ -120,8 +120,8 @@ async function sendRecommendation(req, res) {
         const email = data.email;
         const userName = data.userName;
         const linkToApp = "";
-        const subject = `Invite from ${userName} to join Talk2Friends`;
-        const body = `Hello! \n\nMeet Talk2Friends!\nIt's the app I use to connect with students at USC and practice my language skills with. It has been a great app that helped me to improve as well as to have fun! \n\nTry it out and see you in the app! \n${linkToApp}\n\n${userName}`;
+        const subject = `Invite from ${userName.toString()} to join Talk2Friends`;
+        const body = `Hello! \n\nMeet Talk2Friends!\nIt's the app I use to connect with students at USC and practice my language skills with. It has been a great app that helped me to improve as well as to have fun! \n\nTry it out and see you in the app! \n${linkToApp}\n\n${userName.toString()}`;
         await emailServices.send(email, subject, body);
         res.sendStatus(200);
     } catch (error) {
