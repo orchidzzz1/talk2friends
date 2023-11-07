@@ -178,40 +178,45 @@ class UserDAO {
         }
     }
     async getRecommended(interests) {
-        const client = new AWS.DynamoDB.DocumentClient();
-        var res = {};
-        var promises = [];
-        const pk = "interests";
-        interests.forEach(async (interest) => {
-            var promise = new Promise(async (resolve, reject) => {
-                const params = {
-                    TableName: process.env.CYCLIC_DB,
-                    KeyConditionExpression: "pk = :pk ",
-                    FilterExpression: "interest = :interest",
-                    ExpressionAttributeValues: {
-                        ":pk": pk,
-                        ":interest": interest,
-                    },
-                };
-                const result = await client.query(params).promise();
-                const people = result.Items;
-                people.forEach((person) => {
-                    // parse for email from sk
-                    let email = person.sk.split("-")[0];
+        try {
+            const client = new AWS.DynamoDB.DocumentClient();
+            var res = {};
+            var promises = [];
+            const pk = "interests";
+            interests.forEach(async (interest) => {
+                var promise = new Promise(async (resolve, reject) => {
+                    const params = {
+                        TableName: process.env.CYCLIC_DB,
+                        KeyConditionExpression: "pk = :pk ",
+                        FilterExpression: "interest = :interest",
+                        ExpressionAttributeValues: {
+                            ":pk": pk,
+                            ":interest": interest,
+                        },
+                    };
+                    const result = await client.query(params).promise();
+                    const people = result.Items;
+                    people.forEach((person) => {
+                        // parse for email from sk
+                        let email = person.sk.split("-")[0];
 
-                    if (!res.hasOwnProperty(email)) {
-                        res[email] = [interest];
-                    } else {
-                        res[email].push(interest);
-                    }
+                        if (!res.hasOwnProperty(email)) {
+                            res[email] = [interest];
+                        } else {
+                            res[email].push(interest);
+                        }
+                    });
+
+                    resolve();
                 });
-
-                resolve();
+                promises.push(promise);
             });
-            promises.push(promise);
-        });
-        await Promise.all(promises);
-        return res;
+            await Promise.all(promises);
+            return res;
+        } catch (error) {
+            console.log(error);
+            return {};
+        }
     }
     async addFriend(userEmail, friendEmail) {
         const client = new AWS.DynamoDB.DocumentClient();
