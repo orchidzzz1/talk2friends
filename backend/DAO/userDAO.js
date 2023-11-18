@@ -179,7 +179,7 @@ class UserDAO {
     }
     async getRecommended(interests) {
         try {
-            console.log(interests);
+            console.log(typeof interests);
             const client = new AWS.DynamoDB.DocumentClient();
             var res = {};
             var promises = [];
@@ -187,6 +187,7 @@ class UserDAO {
             if (interests.length == 0) {
                 return res;
             }
+            interests = JSON.parse(interests);
             interests.forEach(async (interest) => {
                 var promise = new Promise(async (resolve, reject) => {
                     const params = {
