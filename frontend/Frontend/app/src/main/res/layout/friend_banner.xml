@@ -22,6 +22,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:text="Remove"/>
+        <Button
+            android:id="@+id/btnAddFriendRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="Add"/>
 
     </RelativeLayout>
 

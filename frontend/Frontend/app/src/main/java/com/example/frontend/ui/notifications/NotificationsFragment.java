@@ -104,7 +104,7 @@ public class NotificationsFragment extends Fragment {
             TextView location = meetingView.findViewById(R.id.textViewLocation);
             location.setText(String.format("Location: %s", meeting.getLocation()));
             TextView datetime = meetingView.findViewById(R.id.textViewDateTime);
-            long timeInMillis = Long.parseLong(meeting.getDatetime());
+            long timeInMillis = meeting.getDatetime();
             Instant instant = Instant.ofEpochMilli(timeInMillis);
             LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

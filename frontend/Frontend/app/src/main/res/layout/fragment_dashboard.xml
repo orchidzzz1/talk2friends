@@ -6,74 +6,85 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".FriendsActivity">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Friends Page"
-            android:textSize="24sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp" />
-
-        <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:ignore="MissingConstraints">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="80dp">
+            android:layout_height="match_parent"
+            tools:context=".FriendsActivity">
 
-            <!-- EditText for typing friend's name -->
-            <EditText
-                android:id="@+id/friendEmailEditText"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="Enter friend's email to refer"
-                android:inputType="text" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Friends Page"
+                android:textSize="24sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp" />
 
             <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                android:orientation="vertical"
+                android:layout_marginTop="80dp">
 
-                <!-- Button to initiate the search -->
-                <Button
-                    android:id="@+id/friendRecommendBtn"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="Recommend"
-                    android:layout_weight="1"
-                    android:layout_margin="6dp"
-                    android:layout_gravity="center" />
+                <!-- EditText for typing friend's name -->
+                <EditText
+                    android:id="@+id/friendEmailEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="Enter friend's email to refer"
+                    android:inputType="text" />
 
-                <!-- Button to initiate find new friends -->
-                <Button
-                    android:id="@+id/goRecommendPageButton"
-                    android:layout_width="100dp"
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Find Recommended"
-                    android:layout_weight="1"
-                    android:layout_margin="6dp"
-                    android:layout_gravity="center" />
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <!-- Button to initiate the search -->
+                    <Button
+                        android:id="@+id/friendRecommendBtn"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Recommend"
+                        android:layout_weight="1"
+                        android:layout_margin="6dp"
+                        android:layout_gravity="center" />
+
+                    <!-- Button to initiate find new friends -->
+                    <Button
+                        android:id="@+id/goRecommendPageButton"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="Find Recommended"
+                        android:layout_weight="1"
+                        android:layout_margin="6dp"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+                <!--Friend List-->
+                <LinearLayout
+                    android:id="@+id/requestsListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    />
+
+                <!--Friend Request List-->
+                <LinearLayout
+                    android:id="@+id/friendsListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    />
 
             </LinearLayout>
 
-            <!--Friend List-->
-            <ListView
-                android:id="@+id/friendsListView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@color/black"
-                android:dividerHeight="2dp"
-                android:listSelector="@color/purple_200"
-                />
+        </RelativeLayout>
+    </ScrollView>
 
-        </LinearLayout>
-
-    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

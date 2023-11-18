@@ -99,11 +99,11 @@ public class createMeetingActivity extends AppCompatActivity {
                 String dateTimeStr = textViewSelectedDateTime.getText().toString();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
                 Date date = null;
-                String timeInMillis;
+                long timeInMillis;
                 try {
                     date = sdf.parse(dateTimeStr);
                     // Get the time in milliseconds since the epoch
-                    timeInMillis = String.valueOf(date.getTime());
+                    timeInMillis = date.getTime();
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }

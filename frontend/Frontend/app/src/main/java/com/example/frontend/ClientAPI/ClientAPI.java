@@ -44,6 +44,8 @@ public class ClientAPI{
         // save some info to local storage
         store.saveUserName(this.context, user.getUserName());
         store.saveInterests(this.context, user.getInterests());
+        store.saveFriends(this.context, user.getFriends());
+        store.saveRequests(this.context, user.getRequests());
         return user;
 
     }
@@ -98,20 +100,24 @@ public class ClientAPI{
         JSONObject params = new JSONObject();
         String[] interests = store.getInterests(this.context);
         JSONArray jsonInterests = new JSONArray(interests);
+        System.out.println(jsonInterests.length());
 
         params.put("interests", jsonInterests);
         JSONObject res = API.makeGetRequest("/user/friends/recommended", params);
+        JSONObject usersJson = res.getJSONObject("users");
         Map<String, List<String>> users = new HashMap();
+
         // parse to create array of users
-        for (Iterator<String> it = res.keys(); it.hasNext(); ) {
-            String key = it.next();
+        for (Iterator<?> it = usersJson.keys(); it.hasNext(); ) {
+            Object key = it.next();
             List<String> userInterests = new ArrayList<>();
-            JSONArray vals = new JSONArray(res.get(key).toString());
+            JSONArray vals = usersJson.getJSONArray(key.toString());
             for (int i = 0; i < vals.length(); i++) {
-                JSONObject val = vals.getJSONObject(i);
-                userInterests.add(val.toString());
+                System.out.println(i);
+                String val = vals.getString(i);
+                userInterests.add(val);
             }
-            users.put(key, userInterests);
+            users.put(key.toString(), userInterests);
         }
         return users;
     }
@@ -131,11 +137,15 @@ public class ClientAPI{
     public Meeting[] getMeetings() throws JSONException {
         JSONObject res = API.makeGetRequest("/meeting/get", new JSONObject());
         Gson gson = new Gson();
-        res.remove("pk");
-        res.remove("sk");
-        res.put("participants", new String[]{});
         // parse to create array of meetings
         JSONArray jsonArr = res.getJSONArray("meetings");
+        for (int i = 0; i < jsonArr.length(); i++) {
+            JSONObject meeting = jsonArr.getJSONObject(i);
+            meeting.remove("pk");
+            meeting.put("meetingId", meeting.get("sk"));
+            meeting.remove("sk");
+        }
+
         Type MeetingList = new TypeToken<Meeting[]>(){}.getType();
         return gson.fromJson(String.valueOf(jsonArr), MeetingList);
     }

@@ -80,8 +80,11 @@ public class GoogleAuth{
                                         public void onComplete(@NonNull Task<GetTokenResult> task) {
                                             if (task.isSuccessful()) {
                                                 String idToken = task.getResult().getToken();
+
                                                 LocalStorage.saveToken(context, idToken);
+                                                LocalStorage.saveEmail(context, user.getEmail());
                                                 ClientAPI api = new ClientAPI(context);
+
                                                 try {
                                                     boolean verified = api.authorize();
                                                     if(verified){

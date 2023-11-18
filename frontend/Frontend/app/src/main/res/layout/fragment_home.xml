@@ -6,42 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".HomeFragment">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Meetings Page"
-            android:textSize="24sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp" />
-
-        <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:ignore="MissingConstraints">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="633dp"
-            android:layout_marginTop="80dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            tools:context=".HomeFragment">
 
-            <!-- Button to initiate the search -->
-            <Button
-                android:id="@+id/goMeetingPageButton"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Create New Meeting" />
+                android:text="Meetings Page"
+                android:textSize="24sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp" />
 
-            <ListView
-                android:id="@+id/meetingListView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@color/black"
-                android:dividerHeight="2dp" />
+                android:layout_height="633dp"
+                android:layout_marginTop="80dp"
+                android:orientation="vertical">
+
+                <!-- Button to initiate the search -->
+                <Button
+                    android:id="@+id/goMeetingPageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Create New Meeting" />
+
+                <LinearLayout
+                    android:id="@+id/meetingListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
 
 
-        </LinearLayout>
-    </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

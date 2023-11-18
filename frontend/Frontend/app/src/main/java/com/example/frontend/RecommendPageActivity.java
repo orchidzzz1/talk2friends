@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.frontend.ClientAPI.ClientAPI;
 import com.example.frontend.models.Meeting;
+import com.example.frontend.store.LocalStorage;
 import com.example.frontend.ui.dashboard.DashboardFragment;
 import com.google.android.gms.common.api.Api;
 
@@ -23,6 +25,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,8 +60,9 @@ public class RecommendPageActivity extends AppCompatActivity {
 
     }
     private void generateUsers(Map<String, List<String>> users){
+        LocalStorage store = new LocalStorage();
         // create layout dynamically
-        ListView view =  findViewById(R.id.friendsListView);
+        LinearLayout view =  findViewById(R.id.recommendFriendsListView);
         LayoutInflater li = LayoutInflater.from(this);
         for (Map.Entry<String, List<String>> user : users.entrySet()) {
             View userView = li.inflate(R.layout.new_friend_banner, view, false);
@@ -66,6 +70,10 @@ public class RecommendPageActivity extends AppCompatActivity {
             TextView interestsView = userView.findViewById(R.id.interestsTextView);
 
             String key = user.getKey();
+            // check if key == user's email or already in requests/friends list
+            if(key.equals(store.getEmail(this)) || Arrays.asList(store.getRequests(this)).contains(key) ||Arrays.asList(store.getFriends(this)).contains(key)){
+                continue;
+            }
             name.setText(key);
             List<String> interests = user.getValue();
             // Iterate through the list of strings
@@ -74,12 +82,24 @@ public class RecommendPageActivity extends AppCompatActivity {
             // Iterate through the array and append each string to the StringBuilder
             for (int i = 0; i < interests.size(); i++) {
                 stringBuilder.append(interests.get(i));
-
                 // Add a comma if it's not the last element
                 if (i < interests.size() - 1) {
                     stringBuilder.append(", ");
                 }
             }
+            Button addBtn = findViewById(R.id.btnAddFriend);
+            addBtn.setTag(key);
+            addBtn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    try {
+                        api.addFriend(addBtn.getTag().toString());
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+            });
 
             // Convert StringBuilder to a String
             String resultString = stringBuilder.toString();
@@ -90,7 +110,7 @@ public class RecommendPageActivity extends AppCompatActivity {
 
 
     public void returnFriendsPage(){
-        Intent intent = new Intent(this, DashboardFragment.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,6 +39,7 @@ public class DashboardFragment extends Fragment {
 
     ListView friendListView;
     User user;
+    ClientAPI api;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class DashboardFragment extends Fragment {
         //dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         Button friendRecommendBtn = (Button) root.findViewById(R.id.friendRecommendBtn);
 
-        ClientAPI api = new ClientAPI(getActivity());
+        api = new ClientAPI(getActivity());
         try {
             user = api.getUser();
         } catch (JSONException e) {
@@ -81,18 +83,72 @@ public class DashboardFragment extends Fragment {
                 openRecommendPage();
             }
         });
-        ListView v =  root.findViewById(R.id.friendsListView);
-        LayoutInflater li = LayoutInflater.from(getActivity());
-        for(String friend: user.getFriends()){
-            View userView = li.inflate(R.layout.friend_banner, v, false);
-            TextView name = userView.findViewById(R.id.textViewFriendName);
-            name.setText(friend);
-            v.addView(userView);
-        }
+
+        generateFriendsList(root, user.getFriends());
+        generateRequestsList(root, user.getRequests());
+
+
         return root;
     }
+    private void generateFriendsList(View v, String[] friends) {
+        LinearLayout view =  v.findViewById(R.id.friendsListView);
+        LayoutInflater li = LayoutInflater.from(getActivity());
+        for(String friend: user.getFriends()){
+            View userView = li.inflate(R.layout.friend_banner, view, false);
+            TextView name = userView.findViewById(R.id.textViewFriendName);
+            name.setText(friend);
+            view.addView(userView);
+            Button addFriend = userView.findViewById(R.id.btnAddFriendRequest);
+            addFriend.setVisibility(View.GONE);
+            Button removeFriend = userView.findViewById(R.id.btnRemoveFriend);
+            removeFriend.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    try {
+                        api.removeFriend(friend);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
 
-    @Override
+
+        }
+    }
+    private void generateRequestsList(View v, String[] requests) {
+        LinearLayout view =  v.findViewById(R.id.requestsListView);
+        LayoutInflater li = LayoutInflater.from(getActivity());
+        for(String friend: user.getFriends()){
+            View userView = li.inflate(R.layout.friend_banner, view, false);
+            TextView name = userView.findViewById(R.id.textViewFriendName);
+            name.setText(friend);
+            view.addView(userView);
+            Button removeFriend = userView.findViewById(R.id.btnRemoveFriend);
+            removeFriend.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    try {
+                        api.removeFriend(friend);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+            Button addFriend = userView.findViewById(R.id.btnAddFriendRequest);
+            addFriend.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    try {
+                        api.addFriend(friend);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+    }
+
+        @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;

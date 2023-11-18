@@ -6,104 +6,110 @@
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ProfilePageActivity">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Profile Page"
-            android:textSize="24sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp" />
-
-        <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:ignore="MissingConstraints">
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="60dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:padding="40dp">
+            tools:context=".ProfilePageActivity">
 
-            <Button
-                android:id="@+id/signOutButton"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Sign Out" />
-
-            <!-- User's Name -->
-            <TextView
-                android:id="@+id/nameTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="NAME"
-                android:textSize="36sp" />
-
-
-            <!-- User's Affiliation -->
-            <TextView
-                android:id="@+id/affiliationTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Affiliation: "
-                android:textSize="24sp" />
-
-            <!-- User's Role -->
-            <TextView
-                android:id="@+id/roleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Role: "
-                android:textSize="24sp" />
-
-            <!-- Created Meetings -->
-<!--            <TextView-->
-<!--                android:id="@+id/createdMeetingsTextView"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Created Meetings"-->
-<!--                android:textSize="24sp" />-->
-
-<!--            <Spinner-->
-<!--                android:id="@+id/createdMeetingsSpinner"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@android:drawable/btn_dropdown"-->
-<!--                android:spinnerMode="dropdown"/>-->
-
-            <TextView
-                android:id="@+id/interestsTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Interests"
-                android:textSize="24sp" />
-
-            <Spinner
-                android:id="@+id/interestsSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/btn_dropdown"
-                android:spinnerMode="dropdown"/>
-
-            <!--Meeting List-->
-            <TextView
-                android:id="@+id/createdMeetingsTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Created Meetings"
-                android:textSize="24sp" />
+                android:text="Profile Page"
+                android:textSize="24sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp" />
 
             <LinearLayout
-                android:id="@+id/createdMeetingsListView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical" />
+                android:layout_marginTop="60dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="40dp">
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/signOutButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Sign Out" />
 
-    </RelativeLayout>
+                <!-- User's Name -->
+                <TextView
+                    android:id="@+id/nameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NAME"
+                    android:textSize="36sp" />
+
+
+                <!-- User's Affiliation -->
+                <TextView
+                    android:id="@+id/affiliationTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Affiliation: "
+                    android:textSize="24sp" />
+
+                <!-- User's Role -->
+                <TextView
+                    android:id="@+id/roleTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Role: "
+                    android:textSize="24sp" />
+
+                <!-- Created Meetings -->
+                <!--            <TextView-->
+                <!--                android:id="@+id/createdMeetingsTextView"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="Created Meetings"-->
+                <!--                android:textSize="24sp" />-->
+
+                <!--            <Spinner-->
+                <!--                android:id="@+id/createdMeetingsSpinner"-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:background="@android:drawable/btn_dropdown"-->
+                <!--                android:spinnerMode="dropdown"/>-->
+
+                <TextView
+                    android:id="@+id/interestsTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Interests"
+                    android:textSize="24sp" />
+
+                <Spinner
+                    android:id="@+id/interestsSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:spinnerMode="dropdown"/>
+
+                <!--Meeting List-->
+                <TextView
+                    android:id="@+id/createdMeetingsTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Created Meetings"
+                    android:textSize="24sp" />
+
+                <LinearLayout
+                    android:id="@+id/createdMeetingsListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

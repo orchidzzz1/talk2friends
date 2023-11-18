@@ -6,14 +6,14 @@ import java.util.List;
 public class Meeting {
     private String meetingId;
     private String title;
-    private String datetime;
+    private long datetime;
     private String location;
 
     private String description;
     private String[] participants;
 
     // Constructor
-    public Meeting(String meetingId, String title, String datetime, String[] participants, String description, String location) {
+    public Meeting(String meetingId, String title, long datetime, String[] participants, String description, String location) {
         this.meetingId = meetingId;
         this.title = title;
         this.datetime = datetime;
@@ -37,7 +37,7 @@ public class Meeting {
         return title;
     }
 
-    public String getDatetime() {
+    public long getDatetime() {
         return datetime;
     }
 
