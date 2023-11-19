@@ -97,6 +97,12 @@ public class createMeetingActivity extends AppCompatActivity {
                 String location;
                 TextView textViewSelectedDateTime = findViewById(R.id.meetingDateTimeText);
                 String dateTimeStr = textViewSelectedDateTime.getText().toString();
+                EditText locationEdit = findViewById(R.id.editTextLocation);
+                location = locationEdit.getText().toString();
+                // make sure all fields are filled out
+                if(title.equals("") || desc.equals("")|| location.equals("") || dateTimeStr.equals("")){
+                    return;
+                }
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
                 Date date = null;
                 long timeInMillis;
@@ -108,8 +114,7 @@ public class createMeetingActivity extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
 
-                EditText locationEdit = findViewById(R.id.editTextLocation);
-                location = locationEdit.getText().toString();
+
 
                 Meeting meeting = new Meeting("0", title, timeInMillis, new String[]{}, desc, location);
                 try {

@@ -21,7 +21,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class AuthenticationPageActivity extends AppCompatActivity {
-    boolean international;
+    boolean international = false; // default in xml is native
     ArrayList interests = new ArrayList<>();
 
     @Override
@@ -82,6 +82,10 @@ public class AuthenticationPageActivity extends AppCompatActivity {
                 String[] interestInput = (String[]) interests.toArray(new String[0]);
                 User user = new User(username, "",interestInput, affiliation, international, new String[]{}, new String[]{},
                 new Meeting[]{});
+                // make sure none of the fields are empty
+                if(username.equals("") || affiliation.equals("") || interestInput.length == 0){
+                    return;
+                }
                 try {
                     api.addUser(user);
                     openMeetingsPage();

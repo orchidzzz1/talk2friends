@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AuthenticationPageActivity"
-    android:paddingTop="?attr/actionBarSize">
+    android:paddingTop="?attr/actionBarSize"
+    android:id="@+id/AuthenticationPageActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -55,7 +56,8 @@
                     android:id="@+id/radioNative"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Native Speaker"/>
+                    android:text="Native Speaker"
+                    android:checked="true"/>
             </RadioGroup>
 
             <LinearLayout
