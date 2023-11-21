@@ -58,3 +58,9 @@ Note: use '-' in between each string concatenation
 
 
 Above are the roures' inputs to be passed from front end and outputs to be received by front end. Only routes mentioned as (GET Route) are GET, the rest are POST routes
+
+## Testing 
+Used white box unit tests on the backend using Jest
+### Directions
+install dependencies using npm install
+cd into testing/ and run npm test
