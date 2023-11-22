@@ -41,4 +41,22 @@ public class createMeetingBlackBoxTest {
         // Check if same view is displayed since creating meeting failed
         onView(withId(R.id.createMeetingActivity)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
     }
+
+    @Test
+    public void create_Meeting() {
+        onView(withId(R.id.meetingNameText))
+                .perform(ViewActions.typeText("Test"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.meetingDescriptionText))
+                .perform(ViewActions.typeText("TestDescription"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.radioPhysical)).perform(click());
+        onView(withId(R.id.editTextLocation))
+                .perform(ViewActions.typeText("THH 201"), ViewActions.closeSoftKeyboard());
+
+
+        // Perform action on create meeting btn
+        onView(withId(R.id.createNewMeetingButton)).perform(click());
+
+        // Check if same view is displayed since creating meeting failed
+        onView(withId(R.id.container)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()));
+    }
 }

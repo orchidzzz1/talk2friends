@@ -54,4 +54,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.4.1"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
+    androidTestImplementation("androidx.fragment:fragment-testing:1.4.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
 }
