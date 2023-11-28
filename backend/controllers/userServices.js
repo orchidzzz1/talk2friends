@@ -71,11 +71,12 @@ async function removeInterest(req, res) {
 }
 async function getRecommended(req, res) {
     try {
-        const interests = req.query.interests;
+        var interests = req.query.interests;
         interests = JSON.parse(interests); // android sends string
         const users = await db.getRecommended(interests);
         res.status(200).json({ users: users });
     } catch (error) {
+        console.log(error);
         res.sendStatus(500);
     }
 }
