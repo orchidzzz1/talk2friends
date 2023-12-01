@@ -21,6 +21,7 @@ async function editMeeting(req, res) {
     try {
         const data = req.body;
         let meeting = new Meeting();
+        meeting.id = data.meetingId;
         meeting.description = data.description;
         meeting.title = data.title;
         meeting.datetime = data.datetime;

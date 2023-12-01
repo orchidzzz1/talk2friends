@@ -42,7 +42,7 @@ async function updateUserInfo(req, res) {
         const data = req.body;
         await db.updateUserInfo(
             req.query.userEmail,
-            data.name,
+            data.userName,
             data.affiliation,
             data.international
         );
@@ -74,6 +74,7 @@ async function getRecommended(req, res) {
         var interests = req.query.interests;
         interests = JSON.parse(interests); // android sends string
         const users = await db.getRecommended(interests);
+
         res.status(200).json({ users: users });
     } catch (error) {
         console.log(error);

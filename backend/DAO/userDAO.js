@@ -261,19 +261,19 @@ class UserDAO {
                 Item: item,
             };
             await client.put(params).promise();
-        } else if (result1.Items.length != 0) {
-            // update
-            const updateExpression = "SET accepted = :accepted";
-            const expressionAttributeValues = {
-                ":accepted": true,
-            };
-            const params = {
-                TableName: process.env.CYCLIC_DB,
-                Key: { pk: "friends", sk: sk1 },
-                UpdateExpression: updateExpression,
-                ExpressionAttributeValues: expressionAttributeValues,
-            };
-            await client.update(params).promise();
+            // } else if (result1.Items.length != 0) {
+            //     // update
+            //     const updateExpression = "SET accepted = :accepted";
+            //     const expressionAttributeValues = {
+            //         ":accepted": true,
+            //     };
+            //     const params = {
+            //         TableName: process.env.CYCLIC_DB,
+            //         Key: { pk: "friends", sk: sk1 },
+            //         UpdateExpression: updateExpression,
+            //         ExpressionAttributeValues: expressionAttributeValues,
+            //     };
+            //     await client.update(params).promise();
         } else if (result2.Items.length != 0) {
             // update
             const updateExpression = "SET accepted = :accepted";
@@ -289,7 +289,7 @@ class UserDAO {
             try {
                 await client.update(params).promise();
             } catch (err) {
-                console.log("Error removing friend: ", err);
+                console.log("Error adding friend: ", err);
             }
         }
     }
