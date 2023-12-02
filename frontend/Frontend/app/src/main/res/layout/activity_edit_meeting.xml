@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".editMeetingActivity"
+    android:paddingTop="?attr/actionBarSize"
+    android:id="@+id/editMeetingActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Title TextView -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="24sp"
+            android:layout_centerHorizontal="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="80dp">
+
+            <EditText
+                android:id="@+id/editMeetingNameText"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:hint="Enter Meeting Name"
+                android:inputType="text" />
+            <EditText
+                android:id="@+id/editMeetingDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:hint="Enter Meeting Description"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/editMeetingDateTimeText"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
+            <Button
+                android:id="@+id/editBtnPickDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pick date"
+                android:layout_gravity="center" />
+            <Button
+                android:id="@+id/editBtnPickTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pick time"
+                android:layout_gravity="center" />
+
+
+
+            <!-- Fields for Physical -->
+            <EditText
+                android:id="@+id/editMeetingTextLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radioGroupLocation"
+                android:layout_marginTop="16dp"
+                android:hint="Enter Location"
+                android:inputType="text"
+                android:visibility="gone"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginEnd="0dp">
+
+                <Button
+                    android:id="@+id/editMeetingButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginEnd="16dp"/>
+                <Button
+                    android:id="@+id/cancelEditMeetingButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="16dp"/>
+                <Button
+                    android:id="@+id/deleteMeetingButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Remove"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,6 +42,12 @@
             android:name=".FriendsActivity"
             android:exported="true" />
         <activity
+            android:name=".editMeetingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EditUserActivity"
+            android:exported="true" />
+        <activity
             android:name=".MeetingActivity"
             android:exported="true" />
         <activity

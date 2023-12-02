@@ -17,9 +17,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.frontend.ClientAPI.ClientAPI;
+import com.example.frontend.EditUserActivity;
 import com.example.frontend.LoginPageActivity;
 import com.example.frontend.R;
 import com.example.frontend.databinding.FragmentNotificationsBinding;
+import com.example.frontend.editMeetingActivity;
 import com.example.frontend.models.Meeting;
 import com.example.frontend.models.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -86,6 +88,13 @@ public class NotificationsFragment extends Fragment {
                 openLoginPage();
             }
         });
+        Button editBtn = root.findViewById(R.id.editUserBtn);
+        editBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                openEditUserPage(user.getUserName(), user.getAffiliation(), user.getInternational(), user.getInterests());
+            }
+        });
 
         //final TextView textView = binding.textNotifications;
         //notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -111,18 +120,17 @@ public class NotificationsFragment extends Fragment {
             // Format the date-time to a string
             String formattedDateTime = dateTime.format(formatter);
             datetime.setText(String.format("Datetime: %s", formattedDateTime));
-//            if(meeting.getParticipants().length > 0){
-//                Spinner spinner = meetingView.findViewById(R.id.spinnerParticipants);
-//                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, meeting.getParticipants());
-//                // Specify the layout to use when the list of choices appears
-//                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                // Apply the adapter to the spinner
-//                spinner.setAdapter(adapter);
-//            }
 
             Button btnRSVP = meetingView.findViewById(R.id.btnRSVP);
             btnRSVP.setTag(meeting.getMeetingId());
-            btnRSVP.setVisibility(View.GONE);
+            // btnRSVP.setVisibility(View.GONE);
+            btnRSVP.setText("Edit");
+            btnRSVP.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    openEditMeetingPage(meeting.getTitle(), meeting.getDescription(), formattedDateTime,meeting.getLocation(), meeting.getMeetingId());
+                }
+            });
 
             view.addView(meetingView);
 
@@ -135,6 +143,25 @@ public class NotificationsFragment extends Fragment {
     }
     public void openLoginPage(){
         Intent intent = new Intent(getActivity(), LoginPageActivity.class);
+        startActivity(intent);
+    }
+    public void openEditMeetingPage(String title, String desc, String datetime, String location, String id){
+        Intent intent = new Intent(getActivity(), editMeetingActivity.class);
+        intent.putExtra("meetingName", title);
+        intent.putExtra("meetingDescription", desc);
+        intent.putExtra("meetingDatetime", datetime);
+        intent.putExtra("meetingLocation", location);
+        intent.putExtra("id", id);
+
+        startActivity(intent);
+    }
+    public void openEditUserPage(String username, String affiliation, boolean role, String[] interests){
+        Intent intent = new Intent(getActivity(), EditUserActivity.class);
+        intent.putExtra("username", username);
+        intent.putExtra("affiliation", affiliation);
+        intent.putExtra("role", role);
+        intent.putExtra("interests", interests);
+
         startActivity(intent);
     }
 }

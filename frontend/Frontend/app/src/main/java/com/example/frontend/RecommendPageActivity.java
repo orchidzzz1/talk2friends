@@ -44,6 +44,7 @@ public class RecommendPageActivity extends AppCompatActivity {
 
         try {
             res = api.getRecommended();
+            System.out.println(res);
         } catch (JSONException e) {
             res = new HashMap<String, List<String>>(){};
         }
@@ -75,6 +76,7 @@ public class RecommendPageActivity extends AppCompatActivity {
                 continue;
             }
             name.setText(key);
+            System.out.println(key);
             List<String> interests = user.getValue();
             // Iterate through the list of strings
             StringBuilder stringBuilder = new StringBuilder();
@@ -87,7 +89,7 @@ public class RecommendPageActivity extends AppCompatActivity {
                     stringBuilder.append(", ");
                 }
             }
-            Button addBtn = findViewById(R.id.btnAddFriend);
+            Button addBtn = userView.findViewById(R.id.btnAddFriend);
             addBtn.setTag(key);
             addBtn.setOnClickListener(new View.OnClickListener(){
                 @Override

@@ -33,6 +33,10 @@ public class VerificationPageActivity extends AppCompatActivity {
                     EditText editText = findViewById(R.id.verificationText);
                     // Get the text from the EditText
                     String inputValue = editText.getText().toString();
+                    if(inputValue.equals("")){
+                        Toast.makeText(context, "Enter a value", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     int code = Integer.parseInt(inputValue);
                     boolean verified = api.verify(code);
                     if(verified){

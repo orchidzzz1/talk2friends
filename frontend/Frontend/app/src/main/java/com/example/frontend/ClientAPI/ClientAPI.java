@@ -40,6 +40,14 @@ public class ClientAPI{
         userJson.remove("sk");
         System.out.println(userJson);
         Gson gson = new Gson();
+        JSONArray meetings = userJson.getJSONArray("meetings");
+        for (int i = 0; i < meetings.length(); i++) {
+            JSONObject meeting = meetings.getJSONObject(i);
+            meeting.remove("pk");
+            meeting.put("meetingId", meeting.get("sk"));
+            meeting.remove("sk");
+        }
+
         User user = gson.fromJson(String.valueOf(userJson), User.class);
         // save some info to local storage
         store.saveUserName(this.context, user.getUserName());
@@ -113,7 +121,6 @@ public class ClientAPI{
             List<String> userInterests = new ArrayList<>();
             JSONArray vals = usersJson.getJSONArray(key.toString());
             for (int i = 0; i < vals.length(); i++) {
-                System.out.println(i);
                 String val = vals.getString(i);
                 userInterests.add(val);
             }
@@ -153,7 +160,7 @@ public class ClientAPI{
     public void editMeeting(Meeting meeting) throws JSONException {
         Gson gson = new Gson();
         JSONObject json = new JSONObject(gson.toJson(meeting));
-        API.makePostRequest("/meeting/update", json);
+        API.makePostRequest("/meeting/edit", json);
     }
 
     public void removeMeeting(String meetingId) throws JSONException {
