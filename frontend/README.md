@@ -14,5 +14,9 @@ Requires USC Google account to login
 
 ## Testing
 Used black box testing using Espresso
+
 ### Directions
 cd into ./Frontend/app/src/androidTest and then run each test file as needed
+
+### Sprint Review
+- added editing functionalities for meeting and user's information, fixed recommending friends functionality
